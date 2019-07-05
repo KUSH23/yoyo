@@ -1,0 +1,355 @@
+<div class="tabl" *ngIf='projectItem && projectItemToExpand'>
+        <!-- <app-project-create *ngIf=UpdateForm [projectItemToUpdate]='projectItem' (doneUpdate)=shutEvent($event)></app-project-create>  -->
+<mat-card>
+    <mat-card-content>
+      <div class="row"> 
+        <div class="col-sm">
+            <div class="row"> 
+                <div class="col-sm" style="font-weight: bold;">
+                <mat-card-content>Delivery Address</mat-card-content>
+                </div>
+                <div class="col-sm" >
+                </div>
+                <div class="col-sm" >
+                <mat-card-content>{{ projectItem.source }}</mat-card-content>
+                </div>
+            </div>
+            <div class="row"> 
+                <mat-card-content>{{ projectItem.address }}</mat-card-content>
+            </div>
+            <div class="row"> 
+                <div class="col-sm" >
+                    <div class="row">
+                    <mat-card-content>{{ projectItem.country.country_name }}</mat-card-content>
+                    </div>
+                    <div class="row">
+                    <mat-card-content>{{ projectItem.district.district_name }}</mat-card-content>
+                    </div>
+                </div>
+                <div class="col-sm" >
+                </div>
+                <div class="col-sm" >
+                <mat-card-content>{{ projectItem.state.state_name }}</mat-card-content>
+                </div>
+            </div>
+            <div class="row"> 
+                <div class="col-sm" >
+                    <mat-card-content>{{ projectItem.city.city_name }}</mat-card-content>  
+                </div>
+                <div class="col-sm" >
+                </div>
+                <div class="col-sm" >
+                        <mat-card-content>{{ projectItem.handled_by }}</mat-card-content>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="row">
+                <div class="col px-2">
+                    <div style="font-weight: bold;" class="row">POC</div>   
+                </div>
+                <div class="col small" style="font-weight: lighter; text-align: right">
+                        <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+                        (click)="addPOC()" (click)="sendMessage(projectItem)">Add POC</i>   
+                </div>
+            </div>
+            <div class="row example hoverable" *ngFor="let pItem of pocs; let i=index">
+            <div class="row">
+                <div class="col px-2">
+                    <div style="font-weight: bold;" class="row">{{ pItem.poc_name }}</div>
+                    <div class="row">{{ pItem.email }}</div>   
+                </div>
+                <div class="col px-2">
+                    <div style="font-weight: bold;" class="row">{{ pItem.department }}</div>
+                    <div class="row">{{ pItem.mobile_1 }}</div>   
+                </div>
+                <div class="col px-2">
+                    <div style="font-weight: bold;" class="row">{{ pItem.designation }}</div>
+                    <div class="row">{{ pItem.mobile_2 }}</div>   
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="d-flex justify-content-between small">
+            <h6 *ngIf="tickets!=''" style="font-family: 'sans-serif';">Tickets</h6> 
+            <button>
+                <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+                (click)="addTicketP()" (click)="sendMessage(projectItem)">Add Tickets</i></button>
+            </div>
+        <div class="row example hoverable z-depth-1" *ngFor="let tItem of (tickets ? tickets.slice(0,2): []); let i=index"
+            [routerLink]='["/d/ticket", tItem.id]'>
+            <div class="col">
+                {{ tItem.ticket_id }}
+            </div>
+            <div class="col">
+                {{ tItem.project }}
+            </div>
+            <div class="col">
+                {{ tItem.order }}
+            </div>
+            <div class="col">
+                {{ tItem.comments }}
+            </div>
+            <div class="col">
+                {{ tItem.timestamp | date:'mediumDate' }}
+            </div>
+        </div>
+
+        <div class="row"> 
+            <div class="col-sm-12" >
+                <p mdbBtn  class="btn mr-auto alert alert-info"
+                (click)="sendMessage(projectItem.id)" [routerLink]='["/d/projects", projectItem.id]'><strong>View Details</strong></p>  
+            </div>
+        </div>
+      </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngIf=!projectItemToExpand>
+
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+<div [@routerTransition]>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header mx-auto py-2 px-2">
+                            <h4 class="card-title" style="font-family: Rock Salt; display: inline;">Products List</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table-wrapper">
+                                <table class="table table-hover tbl-header fl-table">
+                                    <thead class=" text-primary" >
+                                        <th>
+                                            S.No
+                                        </th>
+                                        <th>
+                                            Order Details
+                                        </th>
+                                        <th>
+                                            Product Code
+                                        </th>
+                                        <th>
+                                            Serial No.
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                        <div style="font-weight: lighter;" class="row small">
+                                            <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+                                            (click)="show()" (click)="sendMessage(projectItem)">Add</i>
+                                        </div>
+                                        </th>
+                                    </thead>
+                    
+                                    <tbody *ngFor="let orderItem of orders; let i=index">
+                                        <tr *ngIf='orderItem.serial_no' class="hoverable example z-depth-1" >
+                                            <td (click)="showDetails(orderItem.id)">
+                                                {{i+1}}
+                                            </td>
+                                            <td (click)="showDetails(orderItem.id)">
+                                                {{ orderItem.order_details }}
+                                            </td>
+                                            <td (click)="showDetails(orderItem.id)">
+                                            
+                                                {{ orderItem.product_code }}
+                                            </td>
+                                            <td (click)="showDetails(orderItem.id)">
+                                            
+                                                {{ orderItem.serial_no }}
+                                            </td>
+                                            <td (click)="showDetails(orderItem.id)">
+                                                {{ orderItem.timestamp | date:'mediumDate' }}
+                                            </td>
+                                            <td>
+                                            <div style="font-weight: bold;" class="row">
+                                            <i class="fas fa-edit fa-lg px-1 py-1" (click)="editForm(orderItem)"></i>
+                                            <i class="fas fa-trash fa-lg px-1 py-1" (click)="ondelete(orderItem.id)"></i>
+                                            </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr *ngIf="expand && (id==orderItem.id) && change ">
+                                            <td colspan="6">
+                                        <app-order-details *ngIf="expand && (id==orderItem.id) && change " 
+                                                    [OrderItemToExpand]='orderItem'></app-order-details>
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                               
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header mx-auto py-2 px-2">
+                            <h4 class="card-title" style="font-family: 'sans-serif'; display: inline;">PoC</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table-wrapper">
+                                <table class="table table-hover tbl-header fl-table">
+                                    <thead class=" text-primary" >
+                                        <th>
+                                            S.No
+                                        </th>
+                                        <th>
+                                            Person Name
+                                        </th>
+                                        <th>
+                                            Site
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Mobile
+                                        </th>
+                                        <th>
+                                            Mobile 2
+                                        </th>
+                                        <th>
+                                            <div style="font-weight: lighter;" class="row small">
+                                                <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+                                                (click)="addPOC()" (click)="sendMessage(projectItem)">Add</i>
+                                            </div>
+                                        </th>
+                                    </thead>
+                    
+                                    <tbody *ngFor="let pItem of pocs; let i=index">
+                                        <tr *ngIf='pItem.poc_name' class="hoverable example z-depth-1" >
+                                            <td >
+                                                {{i+1}}
+                                            </td>
+                                            <td>
+                                                {{ pItem.poc_name }} 
+                                            </td>
+                                            <td>
+                                                {{ pItem.site_name }}
+                                            </td>
+                                            <td>
+                                            
+                                                {{ pItem.email }}
+                                            </td>
+                                            <td>
+                                            
+                                                {{ pItem.mobile_1 }}
+                                            </td>
+                                            <td>
+                                            
+                                                {{ pItem.mobile_2 }}
+                                            </td>
+                                            <td>
+                                            <div style="font-weight: bold;" class="row">
+                                            <i class="fas fa-edit fa-lg px-1 py-1" (click)="editForm(pItem)"></i>
+                                            <i class="fas fa-trash fa-lg px-1 py-1" (click)="deletePoc(pItem.id)"></i>
+                                            </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header mx-auto py-2 px-2">
+                        <h4 class="card-title" style="font-family: 'sans-serif'; display: inline;">Tickets</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-wrapper">
+                            <table class="table table-hover tbl-header fl-table">
+                                <thead class="text-primary" >
+                                    <th>
+                                        S.No
+                                    </th>
+                                    <th>
+                                        Ticket ID
+                                    </th>
+                                    <th>
+                                        Project ID
+                                    </th>
+                                    <th>
+                                        Order ID
+                                    </th>
+                                    <th>
+                                        status
+                                    </th>
+                                    <th>
+                                        Comments
+                                    </th>
+                                    <th>
+                                        Total expense
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                </thead>
+                    
+                                <tbody *ngFor="let tItem of tickets; let i=index">
+                                    <tr *ngIf='tItem.project' class="hoverable example z-depth-1" [routerLink]='["/d/ticket", tItem.id]'>
+                                        <td >
+                                            {{i+1}}
+                                        </td>
+                                        <td >
+                                            {{ tItem.ticket_id }}
+                                        </td>
+                                        <td >
+                                            {{ tItem.project }}
+                                        </td>
+                                        <td >
+                                        
+                                            {{ tItem.order }}
+                                        </td>
+                                        <td >
+                                            {{ tItem.status }}
+                                        </td>
+                                        <td >
+                                        
+                                            {{ tItem.comments }}
+                                        </td>
+                                        <td>
+                                            {{ tItem.t_expense }}
+                                        </td>
+                                        <td >
+                                            {{ tItem.timestamp | date:'mediumDate' }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                           
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p mdbBtn color="primary" (click)='goBack()'>Back</p>
+</section>
+    <!-- [routerLink]='["/d/projects", projectItem.id]'> -->
+    <!-- <td>
+        <div class="img-wrap" style="display: inline-block">
+            <span (click)="ondelete(projectItem.id)" class="close">&times;</span>
+        </div>
+    </td> -->
+
+</div>

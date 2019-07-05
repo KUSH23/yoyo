@@ -1,0 +1,64 @@
+$topnav-background-color: #222;
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: #999;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+//     .messages {
+//         width: 300px;
+//         .media {
+//             border-bottom: 1px solid #ddd;
+//             padding: 5px 10px;
+//             &:last-child {
+//                 border-bottom: none;
+//             }
+//         }
+//         .media-body {
+//             h5 {
+//                 font-size: 13px;
+//                 font-weight: 600;
+//             }
+//             .small {
+//                 margin: 0;
+//             }
+//             .last {
+//                 font-size: 12px;
+//                 margin: 0;
+//             }
+//         }
+//     }
+}
+
+div a {
+    text-decoration: none;
+    color: white;
+    display:inline-block;
+  }
+  ul {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+  ul li {display: inline-block;}
+  ul li:hover {background: darken($topnav-background-color, 5%);}
+  ul li:hover ul {display: block;}
+  ul li ul {
+    position: absolute;
+    width: 120px;
+    display: none;
+    padding: 1px;
+  }
+  ul li ul li { 
+    background: darken($topnav-background-color, 5%); 
+    display: block; 
+  }
+  ul li ul li a {display:block !important; text-align: center} 
+  ul li ul li:hover {background:#555}

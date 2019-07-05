@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-between">
+  <h4>New Product</h4>
+  <button mat-button (click)='cancel()'>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-card>
+<mat-card-content>
+<form [formGroup]="OrderForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="input-group">
+      <div class="col-half">
+        <input type='text' formControlName='order_details' placeholder="Order Details">
+      </div>
+      <div class="col-half">
+          <div class="col-more">
+          <input formControlName='warranty' [matDatepicker]="myDatepicker4" placeholder="Warranty Date">
+          </div>
+          <div class="col-less">
+          <mat-datepicker-toggle style="color: #7ed321" [for]="myDatepicker4"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker4></mat-datepicker>
+          </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="col-half">
+        <input type='text' formControlName='warranty_type' placeholder="Warranty Type">
+      </div>
+      <div class="col-half">
+        <input type='text' formControlName='product_code' placeholder="product code">
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="col-half">
+        <input type='text' formControlName='serial_no' placeholder="serial no.">
+      </div>
+      <div class="col-half">
+        <input type='text' formControlName='comments' placeholder="comments">
+      </div>
+    </div>   
+  </div> 
+  <div>
+  <button type="submit" [disabled]="!OrderForm.valid">Submit</button>
+  </div>
+</form>
+</mat-card-content>
+</mat-card>
+
+  

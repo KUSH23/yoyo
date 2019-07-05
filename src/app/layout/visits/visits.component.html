@@ -1,0 +1,81 @@
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+<div [@routerTransition]>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header mx-auto py-2 px-2">
+                        <h4 class="card-title" style="font-family: 'sans-serif'; display: inline;">Ticket Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf='ticketItem'>
+                            Ticket ID
+                            <p>{{ ticketItem.ticket_id }}</p>
+                            <p>Total expense : {{ ticketItem.t_expense }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header mx-auto py-2 px-2">
+                            <h4 class="card-title" style="font-family: 'sans-serif'; display: inline;">Visits</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table-wrapper">
+                                <table class="table table-hover tbl-header fl-table">
+                                    <thead class="text-primary" >
+                                        <th>
+                                            S.No
+                                        </th>
+                                        <th>
+                                            Ticket ID
+                                        </th>
+                                        <th>
+                                            Comments
+                                        </th>
+                                        <th>
+                                            Expense
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                    </thead>
+                        
+                                    <tbody *ngFor="let tItem of visits; let i=index">
+                                        <tr *ngIf='tItem.ticket' class="hoverable example z-depth-1">
+                                            <td >
+                                                {{i+1}}
+                                            </td>
+                                            <td >
+                                                {{ tItem.ticket }}
+                                            </td>
+                                            <td>
+                                                {{ tItem.comments }}
+                                            </td>
+                                            <td >
+                                            
+                                                {{ tItem.expense }}
+                                            </td>
+                                            <td >
+                                                {{ tItem.timestamp | date:'medium' }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                               
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<p mdbBtn color="primary" (click)='goBack()'>Back</p>
+</section>

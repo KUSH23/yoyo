@@ -1,0 +1,24 @@
+
+<div class="d-flex justify-content-between small">
+  <h6 *ngIf="tickets!=''" style="font-family: 'sans-serif';">Tickets</h6> 
+  <button>
+      <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+      (click)="addTicketP()" (click)="sendMessage(orderItem)">Add Tickets</i></button>
+  </div>
+<div class="row example hoverable z-depth-1" *ngFor="let tItem of tickets; let i=index" [routerLink]='["/d/ticket", tItem.id]'>
+    <div class="col">
+        {{ tItem.ticket_id }}
+    </div>
+  <div class="col">
+      {{ tItem.project }}
+  </div>
+  <div class="col">
+      {{ tItem.order }}
+  </div>
+  <div class="col">
+      {{ tItem.comments }}
+  </div>
+  <div class="col">
+      {{ tItem.timestamp | date:'mediumDate' }}
+  </div>
+</div>

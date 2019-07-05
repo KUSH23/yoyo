@@ -1,0 +1,159 @@
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+<div [@routerTransition]>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="!details" class="card">
+                    <div class="d-flex justify-content-between">
+                    <h4 style="font-family: 'sans-serif';">Client</h4>
+                    <p>{{count}}</p>
+                    </div>
+                    <mat-form-field class="col-sm-2">
+                        <input matInput (keyup)="applyFilter($event.target.value)"
+                        placeholder="Filter">  
+                    </mat-form-field>
+                    <div class="card-body">
+                        <div class="table-responsive table-wrapper">
+                            <table class="table table-hover tbl-header fl-table">
+                                    <thead class=" text-primary" >
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">S.No.</div>
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">Group</div>
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: lighter;" class="row small">
+                                                <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+                                                [routerLink]='["/d/project/create"]'>Add</i>
+                                            </div>
+                                            
+                                            <!-- <div style="font-weight: lighter;" class="row">
+                                                options</div> -->
+                                            </th>
+                                        </thead>
+                                <tbody *ngFor="let groupItem of groups; let i=index">
+                                    <tr *ngIf='groupItem.group_name'
+                                        class="example z-depth-2 px-2 btw" mdbWavesEffect >
+                                        <td  (click)="show(groupItem.id)" >
+                                        <div style="font-weight: bold;" class="row">{{ i+1 }}</div>
+                                        </td>
+                                        <td  (click)="show(groupItem.id)" >
+                                        <div style="font-weight: bold;" class="row">{{ groupItem.group_name }}</div>
+                                        </td>
+                                        <td>
+                                        <div style="font-weight: bold;" class="row">
+                                        <i class="fas fa-edit fa-lg px-1 py-1" (click)="editForm(groupItem)"></i>
+                                        <i class="fas fa-trash fa-lg px-1 py-1" (click)="ondelete(groupItem.id)"></i>
+                                        </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="details" class="card">
+                    <div class="d-flex justify-content-between">
+                    <h4 style="font-family: 'sans-serif';">Client</h4>
+                    <div><button (click)="back()">Back</button></div>
+                    </div>
+                    <mat-form-field class="col-sm-2">
+                        <input matInput (keyup)="applyFilt($event.target.value)"
+                        placeholder="Filter">  
+                    </mat-form-field>
+                    <div class="card-body">
+                        <div class="table-responsive table-wrapper">
+                            <table class="table table-hover tbl-header fl-table">
+                                    <thead class=" text-primary" >
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">Group</div>
+                                            <div style="font-weight: lighter;" class="row">SiteName</div> 
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">P.O</div>
+                                            <div style="font-weight: lighter;" class="row">P.O Date</div>
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">Invoice No.</div>
+                                            <div style="font-weight: lighter;" class="row">Invoice Date</div>
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">Project ID</div>
+                                            <div style="font-weight: bold;" class="row"></div>
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">Warranty</div>
+                                            <div style="font-weight: lighter;" class="row">Actice</div>
+                                            </th>
+                                            <th>
+                                            <div style="font-weight: bold;" class="row">Status</div>
+                                            <div style="font-weight: lighter;" class="row">Healthy</div>
+                                            </th>
+                                            
+                                            <th>
+                                            
+                                            <div style="font-weight: lighter;" class="row small">
+                                                <i class="fas fa-folder-plus fa-lg px-1 py-1" style="overflow-clip-box: auto" 
+                                                [routerLink]='["/d/project/create"]'>Add</i>
+                                            </div>
+                                            
+                                            <div style="font-weight: lighter;" class="row">
+                                                options</div>
+                                            </th>
+                                          
+                                        </thead>
+                                <tbody *ngFor="let projectItem of projects; let i=index">
+                                    <tr *ngIf='projectItem.po'
+                                        class="example z-depth-2 px-2 btw" mdbWavesEffect >
+                                        <td  (click)="showDetails(projectItem.id)" >
+                                        <div style="font-weight: bold;" class="row">{{ projectItem.group.group_name }}</div>
+                                        <div class="row">{{ projectItem.site_name.site_name }}</div>   
+                                        </td>
+                                        <td  (click)="showDetails(projectItem.id)" >
+                                        <div style="font-weight: bold;" class="row">{{ projectItem.po }}</div>
+                                        <div class="row">{{ projectItem.po_date }}</div>   
+                                        </td>
+                                        <td  (click)="showDetails(projectItem.id)" > 
+                                        <div style="font-weight: bold;" class="row">{{ projectItem.invoice_no }}</div>
+                                        <div style="font-weight: lighter;" class="row">{{ projectItem.invoice_date }}</div>
+                                        </td>
+                                        <td  (click)="showDetails(projectItem.id)" >
+                                        <div style="font-weight: bold;" class="row">{{ projectItem.project_id }}</div>
+                                        </td>
+                                        <td  (click)="showDetails(projectItem.id)" >
+                                        <div style="font-weight: bold;" class="row">Actice</div>
+                                        <div style="font-weight: lighter;" class="row">{{ projectItem.warranty_date }}</div>
+                                        </td>
+                                        <td  (click)="showDetails(projectItem.id)" >
+                                        <div style="font-weight: bold;" class="row">Status</div>
+                                        <div style="font-weight: lighter;" class="row">Healthy</div>
+                                        </td>
+                                        <td>
+                                        <div style="font-weight: bold;" class="row">
+                                        <i class="fas fa-edit fa-lg px-1 py-1" (click)="editForm(projectItem)"></i>
+                                        <i class="fas fa-trash fa-lg px-1 py-1" (click)="ondelete(projectItem.id)"></i>
+                                        </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="expand && (id==projectItem.id) && change">
+                                        <td colspan="7">
+                                    <app-project-details *ngIf="expand && (id==projectItem.id) && change " 
+                                                [projectItemToExpand]='projectItem'></app-project-details>
+                                            </td>
+                                    </tr>
+                                </tbody>
+                           
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>      
+</div>
+<app-footer></app-footer>
+</section>

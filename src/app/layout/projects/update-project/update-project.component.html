@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-between">
+  <h4>Update</h4>
+  <button mat-button (click)='cancel()'>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content>
+<mat-card >
+<mat-card-content>
+<form [formGroup]="projectForm" (ngSubmit)="onUpdate()">
+    <div class="row">
+        <h4>Group Details</h4>
+        <div class="input-group">
+            <div class="col-half">
+                <input type='text' formControlName='group' placeholder="Group" readonly style="background-color: darkgray">
+            </div>
+            <div class="col-half">
+                <input type='text' formControlName='site_name' placeholder="site_name" readonly style="background-color: darkgray">
+            </div>
+          </div>
+        <div class="input-group">
+            <input type='text' formControlName='sector' placeholder="Sector">
+        </div>
+        <div class="input-group">
+            <div class="col-half">
+                <input type='text' formControlName='country' placeholder="country" readonly style="background-color: darkgray">
+            </div>
+            <div class="col-half">
+                <input type='text' formControlName='state' placeholder="state" readonly style="background-color: darkgray">
+            </div>
+          </div>
+        <div class="input-group">
+            <div class="col-half">
+                <input type='text' formControlName='district' placeholder="district" readonly style="background-color: darkgray">
+            </div>
+            <div class="col-half">
+                <input type='text' formControlName='city' placeholder="city" readonly style="background-color: darkgray">
+            </div>
+          </div>
+        <div class="input-group">
+            <input type='text' formControlName='address' placeholder="Address">
+        </div>
+      </div>
+      <div class="row">
+        <h4>Project Details</h4>
+        <div class="input-group">
+          <div class="col-half">
+              <input type='text' formControlName='po' placeholder="P.O">
+          </div>
+          <div class="col-half">
+              <div class="col-more">
+              <input formControlName='po_date' [matDatepicker]="m" placeholder="P.O Date">
+              </div>
+              <div class="col-less">
+              <mat-datepicker-toggle style="color: #7ed321" [for]="m"></mat-datepicker-toggle>
+              <mat-datepicker #m></mat-datepicker>
+              </div>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="col-half">
+            <input type='text' formControlName='po_type' placeholder="P.O Type">
+          </div>
+          <div class="col-half">
+            <input type='text' formControlName='source' placeholder="source">
+          </div>
+        </div>
+        <div class="input-group">
+          <input type='text' formControlName='project_id' placeholder="Project Id">
+        </div>
+        <div class="input-group">
+          <div class="col-half">
+            <input type='text' formControlName='invoice_no' placeholder="Invoice no.">
+          </div>
+          <div class="col-half">
+              <div class="col-more">
+              <input formControlName='invoice_date' [matDatepicker]="y" placeholder="Invoice Date">
+              </div>
+              <div class="col-less">
+              <mat-datepicker-toggle style="color: #7ed321" [for]="y"></mat-datepicker-toggle>
+              <mat-datepicker #y></mat-datepicker>
+              </div>
+          </div>
+        </div>
+        <div class="input-group">
+            <input type='number' formControlName='warranty_date' placeholder="Warranty months">
+          </div>
+        <div class="input-group">
+          <input type='text' formControlName='handled_by' placeholder="Handled By">
+        </div>
+      </div>
+   
+    <button type="submit" [disabled]="!projectForm.valid">Submit</button>
+</form>
+</mat-card-content>
+</mat-card>
+</mat-dialog-content>

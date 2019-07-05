@@ -1,0 +1,117 @@
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+<div [@routerTransition]>
+<div class="container z-depth-2">
+<div class="d-flex justify-content-between">
+  <h5>New Project</h5>
+  <button mat-button (click)='cancel()'>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <h4>Group Details</h4>
+      <div class="input-group">
+          <select formControlName="group" (ngModelChange)="onChangeGroup($event)">
+            <option value="">Select Group...</option>
+            <option *ngFor="let group of groups" [ngValue]="group.id">{{group.group_name}}</option>
+          </select>
+          <i class="fas fa-folder-plus fa-lg px-1 py-1" style="color: #7ed321" (click)="addForm('g')"></i>
+          <select formControlName="site_name">
+            <option value="">Select Site...</option>
+            <option *ngFor="let site of sites" [ngValue]="site.id">{{site.site_name}}</option>
+          </select>
+          <i class="fas fa-folder-plus fa-lg px-1 py-1" style="color: #7ed321" (click)="addForm('si')"></i>
+      </div>
+      <div class="input-group">
+        <input type='text' formControlName='sector' placeholder="Sector">
+      </div>
+      <div class="input-group">
+          <select formControlName="country" (ngModelChange)="onChangeCountry($event)">
+            <option value="">Select country...</option>
+            <option *ngFor="let country of countries" [ngValue]="country.id">{{country.country_name}}</option>
+          </select>
+          <i class="fas fa-folder-plus fa-lg px-1 py-1" style="color: #7ed321" (click)="addForm('co')"></i>
+          <select formControlName="state" (ngModelChange)="onChangeState($event)">
+            <option value="">Select state...</option>
+            <option *ngFor="let state of states" [ngValue]="state.id">{{state.state_name}}</option>
+          </select>
+          <i class="fas fa-folder-plus fa-lg px-1 py-1" style="color: #7ed321" (click)="addForm('st')"></i>
+      </div>
+      <div class="input-group">
+          <select formControlName="district" (ngModelChange)="onChangeDistrict($event)">
+            <option value="">Select district...</option>
+            <option *ngFor="let district of districts" [ngValue]="district.id">{{district.district_name}}</option>
+          </select>
+          <i class="fas fa-folder-plus fa-lg px-1 py-1" style="color: #7ed321" (click)="addForm('d')"></i>
+          <select formControlName="city">
+            <option value="">Select city...</option>
+            <option *ngFor="let city of cities" [ngValue]="city.id">{{city.city_name}}</option>
+          </select>
+          <i class="fas fa-folder-plus fa-lg px-1 py-1" style="color: #7ed321" (click)="addForm('ci')"></i>
+      </div>
+      <div class="input-group">
+        <input type='text' formControlName='address' placeholder="Address">
+      </div>
+    </div>
+    <div class="row">
+      <h4>Project Details</h4>
+      <div class="input-group">
+        <div class="col-half">
+            <input type='text' formControlName='po' placeholder="P.O">
+        </div>
+        <div class="col-half">
+            <div class="col-more">
+            <input formControlName='po_date' [matDatepicker]="m" placeholder="P.O Date">
+            </div>
+            <div class="col-less">
+            <mat-datepicker-toggle style="color: #7ed321" [for]="m"></mat-datepicker-toggle>
+            <mat-datepicker #m></mat-datepicker>
+            </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="col-half">
+          <input type='text' formControlName='po_type' placeholder="P.O Type">
+        </div>
+        <div class="col-half">
+          <input type='text' formControlName='source' placeholder="source">
+        </div>
+      </div>
+      <div class="input-group">
+        <input type='text' formControlName='project_id' placeholder="Project Id">
+      </div>
+      <div class="input-group">
+        <div class="col-half">
+          <input type='text' formControlName='invoice_no' placeholder="Invoice no.">
+        </div>
+        <div class="col-half">
+            <div class="col-more">
+            <input formControlName='invoice_date' [matDatepicker]="y" placeholder="Invoice Date">
+            </div>
+            <div class="col-less">
+            <mat-datepicker-toggle style="color: #7ed321" [for]="y"></mat-datepicker-toggle>
+            <mat-datepicker #y></mat-datepicker>
+            </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <input type='number' formControlName='warranty_date' placeholder="Warranty months">
+      </div>
+      <div class="input-group">
+          <input type='text' formControlName='handled_by' placeholder="Handled By">
+        </div>
+    </div>
+    <!-- <div class="input-group">
+      <label>Warranty Date
+      <input formControlName='warranty_date' [matDatepicker]="w" placeholder="yyyy-mm-dd">
+      <mat-datepicker-toggle [for]="w"></mat-datepicker-toggle>
+      <mat-datepicker #w></mat-datepicker></label>
+    </div>   -->
+    <button type="submit" [disabled]="!projectForm.valid">Submit</button>
+</form>
+</div>
+</div>
+<app-footer></app-footer>
+</section>

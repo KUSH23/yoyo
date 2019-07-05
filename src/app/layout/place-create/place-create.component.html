@@ -1,0 +1,125 @@
+<!-- <app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+<div [@routerTransition]> 
+  <div class="container my-3"> -->
+<mat-card class="container my-3 example z-depth-2" style="overflow: auto">
+<div class="d-flex justify-content-between">
+  <h4>ADD </h4>
+  <button mat-button (click)='cancel()'>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-card-content *ngIf="str === 'g'">
+  <form [formGroup]="GroupForm" (ngSubmit)="onGroupSubmit()">
+      <div class="row">
+        <div class="input-group">
+          <input type='text' formControlName='group_name' placeholder="Group Name">
+        </div>
+        <div class="input-group">
+          <input type='text' formControlName='group_prefix' placeholder="Group Prefix">
+        </div>
+      </div>
+      <button type="submit" [disabled]="!GroupForm.valid">Submit</button>
+  </form>
+</mat-card-content>
+
+<mat-card-content *ngIf="str === 'si'">
+<form [formGroup]="SiteForm" (ngSubmit)="onSiteSubmit()">
+    <div class="row">
+      <div class="input-group">
+        <select formControlName="group" (change)="onChangeGroup($event.target.value)">
+          <option value="">Select group...</option>
+          <option *ngFor="let group of groups" [value]="group.id">{{group.group_name}}</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type='text' formControlName='site_name' placeholder="Site Name">
+      </div>
+    </div>
+    <button type="submit" [disabled]="!SiteForm.valid">Submit</button>
+</form>
+</mat-card-content>
+
+<mat-card-content *ngIf="str === 'co'">
+<form [formGroup]="CountryForm" (ngSubmit)="onSubmit()">
+    <div class="row"> 
+      <div class="input-group">
+        <input type='text' formControlName='country_name' placeholder="Country Name">
+      </div>
+    </div>
+    <button type="submit" [disabled]="!CountryForm.valid">Submit</button>
+</form>
+</mat-card-content>
+
+<mat-card-content *ngIf="str === 'st'">
+<form [formGroup]="StateForm" (ngSubmit)="onStateSubmit()">
+    <div class="row">
+      <div class="input-group">
+          <select formControlName="country" (change)="onChangeCountry($event.target.value)">
+              <option value="">Select country...</option>
+              <option *ngFor="let country of countries" [value]="country.id">{{country.country_name}}</option>
+            </select>
+      </div> 
+      <div class="input-group">
+          <input type='text' formControlName='state_name' placeholder="State Name">
+        </div>
+    </div>
+    <button type="submit" [disabled]="!StateForm.valid">Submit</button>
+</form>
+</mat-card-content>
+ 
+<mat-card-content *ngIf="str === 'd'">
+<form [formGroup]="DistrictForm" (ngSubmit)="onDistrictSubmit()">
+    <div class="row">
+        <div class="input-group">
+            <select formControlName="country" (change)="onChangeCountry($event.target.value)">
+                <option value="">Select country...</option>
+                <option *ngFor="let country of countries" [value]="country.id">{{country.country_name}}</option>
+              </select>
+          </div>
+          <div class="input-group">
+              <select formControlName="state" (change)="onChangeState($event.target.value)">
+                  <option value="">Select state...</option>
+                  <option *ngFor="let state of states" [value]="state.id">{{state.state_name}}</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type='text' formControlName='district_name' placeholder="District Name">
+              </div>
+    </div>
+    <button type="submit" [disabled]="!DistrictForm.valid">Submit</button>
+</form>
+</mat-card-content>
+
+<mat-card-content *ngIf="str === 'ci'">
+<form [formGroup]="CityForm" (ngSubmit)="onCitySubmit()">
+    <div class="row">
+        <div class="input-group">
+            <select formControlName="country" (change)="onChangeCountry($event.target.value)">
+                <option value="">Select country...</option>
+                <option *ngFor="let country of countries" [value]="country.id">{{country.country_name}}</option>
+              </select>
+          </div>
+        <div class="input-group">
+            <select formControlName="state" (change)="onChangeState($event.target.value)">
+                <option value="">Select state...</option>
+                <option *ngFor="let state of states" [value]="state.id">{{state.state_name}}</option>
+              </select>
+          </div>
+          <div class="input-group">
+              <select formControlName="district" (change)="onChangeDistrict($event.target.value)">
+                  <option value="">Select district...</option>
+                  <option *ngFor="let district of districts" [value]="district.id">{{district.district_name}}</option>
+                </select>
+            </div>
+          <div class="input-group">
+              <input type='text' formControlName='city_name' placeholder="City Name">
+            </div>
+    </div>
+    <button type="submit" [disabled]="!CityForm.valid">Submit</button>
+</form>
+</mat-card-content>
+
+<!-- </div>
+</section> -->

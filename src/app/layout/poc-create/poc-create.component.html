@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between">
+  <h4>New POC</h4>
+  <button mat-button (click)='cancel()'>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-card>
+<mat-card-content>
+<form [formGroup]="PocForm" (ngSubmit)="Submit()">
+  <div class="row">
+  <div class="input-group">
+      <div class="col-half">
+        <input type='text' formControlName='poc_name' placeholder="poc name">
+      </div>
+      <div class="col-half">
+        <input type='text' formControlName='email' placeholder="email">
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="col-half">
+        <input type='text' formControlName='mobile_1' placeholder="mobile no.">
+      </div>
+      <div class="col-half">
+        <input type='text' formControlName='mobile_2' placeholder="mobile no.">
+      </div>
+    </div> 
+    <div class="input-group">
+      <div class="col-half">
+        <input type='text' formControlName='department' placeholder="department">
+      </div>
+      <div class="col-half">
+        <input type='text' formControlName='designation' placeholder="designation">
+      </div>
+    </div>
+  </div>  
+  <div>
+  <button type="submit" [disabled]="!PocForm.valid">Submit</button>
+  </div>
+</form>
+</mat-card-content>
+</mat-card>
+    

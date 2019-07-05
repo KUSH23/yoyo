@@ -1,0 +1,55 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>P2 POWER</h1>
+            <p *ngIf='!tokenExists'>
+                <a routerLink='/login'>Login</a>
+            </p>
+            <form *ngIf="tokenExists" [formGroup]="SignUpForm" #ourSignUpDir='ngForm' (submit)='onSubmit(ourSignUpDir)'>
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" class=" input-underline input-lg"
+                             formControlName='username' placeholder="Username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class=" input-underline input-lg" 
+                            formControlName='email' placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class=" input-underline input-lg" 
+                            formControlName='password' placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="input-underline input-lg" 
+                            formControlName='password2' placeholder="Repeat Password" required>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="checkbox" formControlName="is_admin">Admin
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="checkbox" formControlName="is_manager">Manager
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="checkbox" formControlName="is_service_manager">Service Manager
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <button class="btn rounded-btn" type="submit" [disabled]="!SignUpForm.valid">Register</button>&nbsp;
+                <a class="btn rounded-btn" type='button' (click)='ourSignUpDir.resetForm({})'>Reset</a>
+                <a *ngIf="tokenExists" class="btn rounded-btn" type='button' [routerLink]="['/d/dashboard']" >back</a>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- [routerLink]="['/d/dashboard']" -->
